@@ -10,7 +10,7 @@ import java.util.UUID;
 public class ParticipantService {
 
     // method to register participants
-    public void resgisterParticipantsToEvent (List<String> participantsToInvite, UUID id){
+    public void registerParticipantsToEvent (List<String> participantsToInvite, UUID id){
 
     }
 
