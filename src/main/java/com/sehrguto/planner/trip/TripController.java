@@ -1,5 +1,6 @@
 package com.sehrguto.planner.trip;
 
+import com.sehrguto.planner.activities.ActivityData;
 import com.sehrguto.planner.activities.ActivityRequestPayload;
 import com.sehrguto.planner.activities.ActivityResponse;
 import com.sehrguto.planner.activities.ActivityService;
@@ -131,4 +132,10 @@ public class TripController {
 
 
     //endpoint to retrieve all activities related to the trip
+    @GetMapping("/{id}/activities")
+    public ResponseEntity<List<ActivityData>> getAllActivities(@PathVariable UUID id){
+        List<ActivityData> activityList = this.activityService.getAllActivitiesFromId(id);
+
+        return ResponseEntity.ok(activityList);
+    }
 }
