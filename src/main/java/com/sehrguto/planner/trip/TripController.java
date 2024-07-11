@@ -1,5 +1,8 @@
 package com.sehrguto.planner.trip;
 
+import com.sehrguto.planner.activities.ActivityRequestPayload;
+import com.sehrguto.planner.activities.ActivityResponse;
+import com.sehrguto.planner.activities.ActivityService;
 import com.sehrguto.planner.participant.ParticipantCreateResponse;
 import com.sehrguto.planner.participant.ParticipantData;
 import com.sehrguto.planner.participant.ParticipantRequestPayload;
@@ -21,6 +24,9 @@ public class TripController {
     // declare service
     @Autowired
     private ParticipantService participantService;
+
+    @Autowired
+    private ActivityService activityService;
 
     // declare repository
     @Autowired
@@ -79,6 +85,7 @@ public class TripController {
         return ResponseEntity.notFound().build();
     }
 
+    //endpoint to invite new participants
     @PostMapping("/{id}/invite")
     public ResponseEntity<ParticipantCreateResponse> inviteParticipant(@PathVariable UUID id, @RequestBody ParticipantRequestPayload payload) {
 
@@ -98,11 +105,30 @@ public class TripController {
         return ResponseEntity.notFound().build();
     }
 
-    //Participant
+    //endpoint to retreive all Participants
     @GetMapping("/{id}/participants")
     public ResponseEntity<List<ParticipantData>> getAllParticipants(@PathVariable UUID id){
         List<ParticipantData> participantList = this.participantService.getAllParticipantsFromEvent(id);
 
         return ResponseEntity.ok(participantList);
     }
+
+    //endpoint to create activities related to the trip
+    @PostMapping("/{id}/activities")
+    public ResponseEntity<ActivityResponse> registerActivity(@PathVariable UUID id, @RequestBody ActivityRequestPayload payload) {
+        Optional<Trip> trip = this.repository.findById(id);
+
+        if(trip.isPresent()){
+            Trip rawTrip = trip.get();
+
+            ActivityResponse activityResponse  = this.activityService.regiterActivity(payload, rawTrip);
+
+            return ResponseEntity.ok(activityResponse);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+
+    //endpoint to retrieve all activities related to the trip
 }
