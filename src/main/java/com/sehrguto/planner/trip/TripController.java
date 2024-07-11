@@ -1,6 +1,7 @@
 package com.sehrguto.planner.trip;
 
 import com.sehrguto.planner.participant.ParticipantCreateResponse;
+import com.sehrguto.planner.participant.ParticipantData;
 import com.sehrguto.planner.participant.ParticipantRequestPayload;
 import com.sehrguto.planner.participant.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -92,10 +94,15 @@ public class TripController {
 
             return ResponseEntity.ok(participantResponse);
         }
-        return ResponseEntity.notFound().build();
 
+        return ResponseEntity.notFound().build();
     }
 
+    //Participant
+    @GetMapping("/{id}/participants")
+    public ResponseEntity<List<ParticipantData>> getAllParticipants(@PathVariable UUID id){
+        List<ParticipantData> participantList = this.participantService.getAllParticipantsFromEvent(id);
 
-
+        return ResponseEntity.ok(participantList);
+    }
 }
