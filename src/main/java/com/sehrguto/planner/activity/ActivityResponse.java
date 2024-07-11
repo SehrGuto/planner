@@ -1,4 +1,4 @@
-package com.sehrguto.planner.activities;
+package com.sehrguto.planner.activity;
 
 import java.util.UUID;
 

@@ -1,9 +1,9 @@
 package com.sehrguto.planner.trip;
 
-import com.sehrguto.planner.activities.ActivityData;
-import com.sehrguto.planner.activities.ActivityRequestPayload;
-import com.sehrguto.planner.activities.ActivityResponse;
-import com.sehrguto.planner.activities.ActivityService;
+import com.sehrguto.planner.activity.ActivityData;
+import com.sehrguto.planner.activity.ActivityRequestPayload;
+import com.sehrguto.planner.activity.ActivityResponse;
+import com.sehrguto.planner.activity.ActivityService;
 import com.sehrguto.planner.participant.ParticipantCreateResponse;
 import com.sehrguto.planner.participant.ParticipantData;
 import com.sehrguto.planner.participant.ParticipantRequestPayload;

@@ -1,6 +1,4 @@
-package com.sehrguto.planner.activities;
-
-import java.time.LocalDateTime;
+package com.sehrguto.planner.activity;
 
 public record ActivityRequestPayload(String title, String occurs_at) {
 }

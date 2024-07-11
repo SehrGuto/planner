@@ -1,6 +1,5 @@
-package com.sehrguto.planner.activities;
+package com.sehrguto.planner.activity;
 
-import com.sehrguto.planner.participant.ParticipantData;
 import com.sehrguto.planner.trip.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
