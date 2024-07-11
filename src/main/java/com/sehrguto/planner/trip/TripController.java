@@ -4,6 +4,10 @@ import com.sehrguto.planner.activity.ActivityData;
 import com.sehrguto.planner.activity.ActivityRequestPayload;
 import com.sehrguto.planner.activity.ActivityResponse;
 import com.sehrguto.planner.activity.ActivityService;
+import com.sehrguto.planner.link.LinkData;
+import com.sehrguto.planner.link.LinkRequestPayload;
+import com.sehrguto.planner.link.LinkResponse;
+import com.sehrguto.planner.link.LinkService;
 import com.sehrguto.planner.participant.ParticipantCreateResponse;
 import com.sehrguto.planner.participant.ParticipantData;
 import com.sehrguto.planner.participant.ParticipantRequestPayload;
@@ -28,6 +32,9 @@ public class TripController {
 
     @Autowired
     private ActivityService activityService;
+
+    @Autowired
+    private LinkService linkService;
 
     // declare repository
     @Autowired
@@ -137,5 +144,29 @@ public class TripController {
         List<ActivityData> activityList = this.activityService.getAllActivitiesFromId(id);
 
         return ResponseEntity.ok(activityList);
+    }
+
+    //endpoint to register important links to the trip
+    @PostMapping("/{id}/links")
+    public ResponseEntity<LinkResponse> registerLink(@PathVariable UUID id, @RequestBody LinkRequestPayload payload) {
+        Optional<Trip> trip = this.repository.findById(id);
+
+        if(trip.isPresent()){
+            Trip rawTrip = trip.get();
+
+            LinkResponse linkResponse  = this.linkService.regiterLink(payload, rawTrip);
+
+            return ResponseEntity.ok(linkResponse);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    //endpoint to retrieve all links related to the trip
+    @GetMapping("/{id}/links")
+    public ResponseEntity<List<LinkData>> getAllLinks(@PathVariable UUID id){
+        List<LinkData> linkList = this.linkService.getAllLinksFromId(id);
+
+        return ResponseEntity.ok(linkList);
     }
 }
